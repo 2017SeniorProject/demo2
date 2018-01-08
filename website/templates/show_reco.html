@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-  crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-  crossorigin="">
-  </script>
-</head>
-<body>	
+{% extends "layout.html" %}
+
+{% block content %}
 <p>
-	Restaurant Near You In {{division}}
+	Your Result
 </p>
-<div id="map" style="height: 600px;"></div>
+
+
+<div id="map" style="height: 500px;"></div>
 
 <script type="text/javascript">
   // The first parameter are the coordinates of the center of the map
@@ -28,7 +21,7 @@
   map.addLayer(layer);
 
   // It even opens up a popup when you click it!
-  {{% for row in recommendation %}}
+  {% for row in recommendation %}
 
 	L.marker([{{ row['reco']['latitude'] }}, {{ row['reco']['longitude'] }}]).addTo(map)
   .bindPopup("<strong>{{ row['reco']['shopName'] }}</strong>").openPopup();
@@ -36,6 +29,20 @@
   {% endfor %}
   
 </script>
-	
-</body>
-</html>
+
+<div>
+{% for row in recommendation %}
+          <p>
+          name:{{ row['reco']['shopName'] }},
+          add:{{ row['reco']['SDAddress']}},
+          lat:{{ row['reco']['latitude'] }},
+          lon:{{ row['reco']['longitude'] }},
+          SDRate:{{ row['reco'['SDRate']] }}
+          cat:{{ row['cat']}},
+          distance:{{ row['distance'] }}
+          <a href="{{ url_for('res_detail', shopId=row['reco']['shopId']) }}">detail</a>
+           </p> 
+{% endfor %}
+</div>
+
+{% endblock %}

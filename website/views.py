@@ -156,9 +156,20 @@ def just_for_you():
 @app.route("/show",methods=["GET","POST"])
 def show():
 	if request.method=="POST":
-		return "todo"
+		location=request.form["division"]
+		category=request.form["category"]
+		month=request.form["month"]
+		user=User(session['username'])
+		recommendation=RecoEngine.more2(location,category,month,user)
+		session['item']=recommendation[0]['reco']
+		#reco=RecoEngine.more2(location,category,month,user)
+		return render_template("show_reco.html",recommendation=recommendation)
+
 	season=RecoEngine.res_near_you()
-	return render_template("show.html",season=season)
+	category=RecoEngine.getCategory()
+	month=RecoEngine.getMonth()
+	division=RecoEngine.getDivision()
+	return render_template("show.html",season=season,category=category,month=month,division=division)
 
 
 @app.route("/res_detail/<shopId>")

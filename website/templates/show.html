@@ -6,16 +6,33 @@
 			<div>
 					<form action="{{ url_for('show')}}" method="post">
 					<br>
-					Division:
-					<input type="text" name="division">
+					Area:
+					<select name="division">
+						{% for row in division %}
+						    <option value={{row['area']}}>{{row['area']}}</option>
+						{% endfor %}
+					</select>
+					
 					</br>
 					<br>
 					Category:
-					<input type="text" name="category">
+					<select name="category">
+						<option value="all">all</option>
+						{% for row in category %}
+						    <option value={{row['category']}}>{{row.category}}</option>
+						{% endfor %}
+					</select>
+					
 					</br>
 					<br>
 					Month:
-					<input type="text" name="month">
+					<select name="month">
+						<option value="all">all</option>
+						{% for row in month %}
+						    <option value={{row['month']}}>{{row.month}}</option>
+						{% endfor %}
+					</select>
+					
 					</br>
 					<input type="submit" value="submit">
 					</form> 
