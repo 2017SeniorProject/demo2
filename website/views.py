@@ -161,7 +161,7 @@ def show():
 		month=request.form["month"]
 		user=User(session['username'])
 		recommendation=RecoEngine.more2(location,category,month,user)
-		session['item']=recommendation[0]['reco']
+		#session['item']=recommendation[0]['reco']
 		#reco=RecoEngine.more2(location,category,month,user)
 		return render_template("show_reco.html",recommendation=recommendation)
 

@@ -49,6 +49,7 @@
 					SDRate:{{ row['reco'['SDRate']] }}
 					cat:{{ row['cat']}},
 					distance:{{ row['distance'] }}
+					price: {{ row['reco']['price'] }}
 					<a href="{{ url_for('res_detail', shopId=row['reco']['shopId']) }}">detail</a>
 					 </p> 
 				{% endfor %}
