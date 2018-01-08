@@ -466,6 +466,14 @@ class RecoEngine:
 		"""
 		return graph.data(query,shopId=shopId)
 
+	def getReviews(shopId1):
+		shopId=int(shopId1)
+		query="""
+		match (n:Restaurant)<-[:ABOUT]-(review:Review) where n.shopId={shopId}
+		return review order by review.SDRate desc limit 5
+		"""
+		return graph.data(query,shopId=shopId)
+
 ##############################################################################################
 def timestamp():
 	epoch = datetime.utcfromtimestamp(0)

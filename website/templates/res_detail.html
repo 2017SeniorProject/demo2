@@ -4,7 +4,6 @@
 		<h1>Shop: {{detail[0]['reco']['shopName']}}</h1>
 
 		<div> 
-			
 					<p>
 					name:{{ detail[0]['reco']['shopName'] }}<br>
 					add:{{ detail[0]['reco']['SDAddress']}},<br>
@@ -17,12 +16,17 @@
 					reviewCount:{{detail[0]['reco']['reviewCount']}}<br>
 					 </p> 
 
+		 </div>
 
-
+		 <div>
+		 	<h1> Review Link </h1>
+		 	{% for row in reviews %}
+		 	<p> http://www.ipeen.com.tw/comment/{{row['review']['reviewId']}}</p>
+		 	{% endfor%}
 		 </div>
 
 		<div>
-			<h1> You might like(relating restaurant here):</h1>
+			<h1> You might like:</h1>
 				{% for row in relating %}
 					<p>
 					name:{{ row['reco']['shopName'] }},

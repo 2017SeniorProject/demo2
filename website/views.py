@@ -177,22 +177,9 @@ def show():
 def res_detail(shopId):
 	###list shop detail and relating restaurant
 	detail=RecoEngine.getDetail(shopId)
+	reviews=RecoEngine.getReviews(shopId)
 	relating=RecoEngine.relating(shopId)
-	return render_template("res_detail.html",relating=relating,detail=detail)
+	return render_template("res_detail.html",relating=relating,detail=detail,reviews=reviews)
 
 
-@app.route("/month_best")
-def month_best():
-	###show best restaurant of each month
-	return render_template("month_best.html")
-
-@app.route("/area_best")
-def area_best():
-	###show popular restaurant of the area
-	return render_template("area_best.html")
-
-@app.route("/category_best")
-def category_best():
-	###show you may like at the end of the page
-	return render_template("category_best.html")
 
