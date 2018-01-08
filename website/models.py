@@ -405,12 +405,39 @@ class RecoEngine:
 			(reco)-[:IN_CATEGORY]->(c:Category)
 			where d.e_name={location} and c.SDCategory={category}
 			WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance
-			RETURN reco
+			RETURN reco, reco.SDRate,distance
 			ORDER BY distance LIMIT 30
 			"""
 			return graph.data(query,username=username,location=location,category=category)
 
-		
+		if category=='all' and month!='all':
+			month1=int(month)
+
+			query="""
+			Match (u:User) where u.username={username}
+			WITH point({latitude:u.latitude,longitude:u.longitude}) AS mapcenter
+			MATCH (d:Division)-[:IN_MONTH]-(m:Month)-[b:BY_MONTH]-(reco:Restaurant)
+			where d.e_name={location} and m.month={month}
+			WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance,b
+			RETURN reco,b.no_reviews as review_num,b.m_avg as month_avg,distance
+			ORDER BY review_num desc LIMIT 30
+			"""
+
+			return graph.data(query,username=username,location=location,month=month1)	
+
+		if category!='all' and month!='all':
+			month1= int(month)
+			query="""
+			Match (u:User) where u.username={username}
+			WITH point({latitude:u.latitude,longitude:u.longitude}) AS mapcenter
+			MATCH (reco)-[:IN_DIVISION]->(d:Division), (reco)-[:IN_CATEGORY]->(c:Category), (reco)-[b:BY_MONTH]->(m:Month)
+			where d.e_name={location} and c.SDCategory={category} and m.month={month}
+			WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance,b
+			RETURN reco,b.no_reviews as review_num,b.m_avg as month_avg,distance
+			ORDER BY month_avg desc LIMIT 30
+
+			"""	
+			return graph.data(query,username=username,location=location,category=category,month=month1)
 
 
 	def getDivision():
