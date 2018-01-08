@@ -1,9 +1,25 @@
 {% extends "layout.html" %}
 
 {% block content %}
-		<h1>Top of the Month</h1>
+		<h1>Shop: {{detail[0]['reco']['shopName']}}</h1>
 
-		<div> other detail here  </div>
+		<div> 
+			
+					<p>
+					name:{{ detail[0]['reco']['shopName'] }}<br>
+					add:{{ detail[0]['reco']['SDAddress']}},<br>
+					lat:{{ detail[0]['reco']['latitude'] }},<br>
+					lon:{{ detail[0]['reco']['longitude'] }}<br>
+					SDRate:{{ detail[0]['reco']['SDRate']}}<br>
+					category:{{ detail[0]['cat']}}<br>
+					price:{{ detail[0]['reco']['price']}}<br>
+					telephone:{{detail[0]['reco']['SDTelephone']}}<br>
+					reviewCount:{{detail[0]['reco']['reviewCount']}}<br>
+					 </p> 
+
+
+
+		 </div>
 
 		<div>
 			<h1> You might like(relating restaurant here):</h1>

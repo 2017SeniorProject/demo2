@@ -457,6 +457,15 @@ class RecoEngine:
 			match (n:Month) return distinct n.month as month
 		"""
 		return graph.data(query)
+
+	def getDetail(shopId1):
+		shopId=int(shopId1)
+		query="""
+		match (reco:Restaurant)<-[:ABOUT]-(r:Review) where reco.shopId={shopId}
+		return reco
+		"""
+		return graph.data(query,shopId=shopId)
+
 ##############################################################################################
 def timestamp():
 	epoch = datetime.utcfromtimestamp(0)
