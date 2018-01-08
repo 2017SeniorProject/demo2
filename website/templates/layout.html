@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Munchy Gourmet</title>
+  </head>
+  <body>
+    <h1> Munchy Gourmet</h1>
+    <p>
+      <strong>Navigation:</strong> 
+        <a href="/show">Home</a> 
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+
+  {% if session.username %}
+   <p>Logged in as {{ session.username }}</p>
+  {% endif %}
+
+
+    {% block content %}{% endblock %}
+    <p>&copy; Yum Yum</p>
+  </body>
+</html>

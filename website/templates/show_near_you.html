@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+  crossorigin="">
+  </script>
+</head>
+<body>	
+<p>
+	Restaurant Near You In {{division}}
+</p>
+<div id="map" style="height: 600px;"></div>
+
+<script type="text/javascript">
+  // The first parameter are the coordinates of the center of the map
+  // The second parameter is the zoom level
+  var map = L.map('map').setView([40.712, -74.006], 11);
+  
+  var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  });
+  
+  // Now add the layer onto the map
+  map.addLayer(layer);
+
+  // It even opens up a popup when you click it!
+  {{% for row in recommendation %}}
+
+	L.marker([{{ row['reco']['latitude'] }}, {{ row['reco']['longitude'] }}]).addTo(map)
+  .bindPopup("<strong>{{ row['reco']['shopName'] }}</strong>").openPopup();
+  
+  {% endfor %}
+  
+</script>
+	
+</body>
+</html>

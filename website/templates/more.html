@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>
+	General Recommendation
+</h1>
+
+  {% for row in recommendation %}
+<p>
+	name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+
+ </p> 
+  {% endfor %}
+
+
+{% endblock %}

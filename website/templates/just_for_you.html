@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<body>	
+<h1>	Just for You </h1>
+
+<h2>Top in Yilan</h2>
+
+  {% for row in topinYilan %}
+<p>
+	name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+ </p> 
+  {% endfor %}
+
+  <h2>Popular in this Month</h2>
+
+  {% for row in topinMonth %}
+<p>
+  name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+ </p> 
+  {% endfor %}
+
+  <h2>Near You</h2>
+  {% for row in near_you %}
+
+  <p>
+  name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},2
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+  </p> 
+
+  {% endfor %}
+
+
+  {% if search_relating %}
+  <h2>Relating to Your Search</h2>
+  {% for row in search_relating %}
+  <p>
+  name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},2
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+  </p> 
+  {% endfor %}
+  {% endif %}
+	
+</body>
+</html>

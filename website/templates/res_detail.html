@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+		<h1>Top of the Month</h1>
+
+		<div> other detail here  </div>
+
+		<div>
+			<h1> You might like(relating restaurant here):</h1>
+				{% for row in relating %}
+					<p>
+					name:{{ row['reco']['shopName'] }},
+					add:{{ row['reco']['SDAddress']}},
+					lat:{{ row['reco']['latitude'] }},
+					lon:{{ row['reco']['longitude'] }},
+					SDRate:{{ row['reco'['SDRate']] }}
+					cat:{{ row['cat']}},
+					distance:{{ row['distance'] }}
+					<a href="{{ url_for('res_detail', shopId=row['reco']['shopId']) }}">detail</a>
+					 </p> 
+				{% endfor %}
+
+
+		</div>
+{% endblock %}

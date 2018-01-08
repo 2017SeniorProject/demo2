@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>	
+<p>
+	Restaurant Recommendation in This Month 
+</p>
+
+  {% for row in recommendation %}
+<p>
+	name:{{ row['reco']['shopName'] }},
+  add:{{ row['reco']['SDAddress']}},
+  lat:{{ row['reco']['latitude'] }},
+  lon:{{ row['reco']['longitude'] }},
+  SDRate:{{ row['reco'['SDRate']] }}
+  cat:{{ row['cat']}},
+  distance:{{ row['distance'] }}
+
+  {% endfor %}
+ </p> 
+</script>
+	
+</body>
+</html>
