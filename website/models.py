@@ -382,15 +382,36 @@ class RecoEngine:
 
 		return graph.run(query,idd=idd)
 
-	def more2():
-		shopId=111
-		idd=int(shopId)
-		query="""match(n:Restaurant{shopId:{idd}}),
-		path=(n)-[r:NEIGHBOR*1..2]-(reco) 
-		with reduce(cost=0,r in rels(path)|cost+r.cost) as totalWeight,path,(n),(reco)
-		return distinct reco, totalWeight order by totalWeight limit 5"""
+	def more2(location,category,month,user1):
+		user=user1.find()
+		username=user["username"]
 
-		return graph.run(query,idd=idd)
+		if category=='all' and month=='all':
+			query="""
+			Match (u:User) where u.username={username}
+			WITH point({latitude:u.latitude,longitude:u.longitude}) AS mapcenter
+			MATCH (reco:Restaurant)-[:IN_DIVISION]->(d:Division) where d.e_name={location}
+			WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance
+			RETURN reco, distance
+			ORDER BY distance LIMIT 30
+			"""
+			return graph.data(query,username=username,location=location)
+
+		if category!='all' and month=='all':
+			query="""
+			Match (u:User) where u.username={username}
+			WITH point({latitude:u.latitude,longitude:u.longitude}) AS mapcenter
+			MATCH (reco:Restaurant)-[:IN_DIVISION]->(d:Division),
+			(reco)-[:IN_CATEGORY]->(c:Category)
+			where d.e_name={location} and c.SDCategory={category}
+			WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance
+			RETURN reco
+			ORDER BY distance LIMIT 30
+			"""
+			return graph.data(query,username=username,location=location,category=category)
+
+		
+
 
 	def getDivision():
 		query="""
@@ -404,6 +425,11 @@ class RecoEngine:
 		"""
 		return graph.data(query)
 
+	def getMonth():
+		query="""
+			match (n:Month) return distinct n.month as month
+		"""
+		return graph.data(query)
 ##############################################################################################
 def timestamp():
 	epoch = datetime.utcfromtimestamp(0)
