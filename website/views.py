@@ -166,11 +166,12 @@ def show():
 		#reco=RecoEngine.more2(location,category,month,user)
 		return render_template("show_reco.html",recommendation=recommendation)
 
-	season=RecoEngine.res_near_you()
+	season=RecoEngine.currentSeason()
 	category=RecoEngine.getCategory()
 	month=RecoEngine.getMonth()
 	division=RecoEngine.getDivision()
-	return render_template("show.html",season=season,category=category,month=month,division=division)
+	topPlace=RecoEngine.topPlace()
+	return render_template("show.html",season=season,category=category,month=month,division=division,popular=topPlace)
 
 
 @app.route("/res_detail/<shopId>")

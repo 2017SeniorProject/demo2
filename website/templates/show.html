@@ -39,7 +39,7 @@
 			</div>
 
 		<div>
-			<h1> Current Season Restaurant:</h1>
+			<h1> This Season </h1>
 				{% for row in season %}
 					<p>
 					name:{{ row['reco']['shopName'] }},
@@ -54,6 +54,23 @@
 					 </p> 
 				{% endfor %}
 
+		</div>
 
+		<div>
+			<h1>Popular Restaurant</h1>
+			{% for row in popular %}
+			<p>
+					name:{{ row['reco']['shopName'] }},
+					add:{{ row['reco']['SDAddress']}},
+					lat:{{ row['reco']['latitude'] }},
+					lon:{{ row['reco']['longitude'] }},
+					SDRate:{{ row['reco'['SDRate']] }}
+					cat:{{ row['cat']}},
+					distance:{{ row['distance'] }}
+					price: {{ row['reco']['price'] }}
+					<a href="{{ url_for('res_detail', shopId=row['reco']['shopId']) }}">detail</a>
+					 </p> 
+			{% endfor %}
 		</div>
 {% endblock %}
+

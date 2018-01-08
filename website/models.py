@@ -474,6 +474,31 @@ class RecoEngine:
 		"""
 		return graph.data(query,shopId=shopId)
 
+	def topPlace():
+		query="""
+		Match (D:Division)-[:TOP_PLACE]->(reco:Restaurant)
+		return distinct reco order by reco.reviewCount desc limit 7
+		"""
+		return graph.data(query)
+
+	def currentSeason():
+		now=datetime.now()
+		month=int(now.month)
+
+		if month>=3 and month <=5:
+			season="Spring"
+		if month>=6 and month<=8:
+			season="Summer"
+		if month>=9 and month<=11:
+			season="Autumn"
+		if month==12 or month==1 or month==2:
+			season="Winter"
+
+		query="""
+		Match (s:Season)-[:IN_SEASON]-(m:Month)-[:MONTH_TOP]-(reco:Restaurant) where s.season={season}
+		return distinct reco order by reco.reviewCount desc limit 7
+		"""
+		return graph.data(query,season=season)
 ##############################################################################################
 def timestamp():
 	epoch = datetime.utcfromtimestamp(0)
