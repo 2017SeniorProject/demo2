@@ -161,7 +161,8 @@ def show():
 		month=request.form["month"]
 		user=User(session['username'])
 		recommendation=RecoEngine.more2(location,category,month,user)
-		#session['item']=recommendation[0]['reco']
+		if len(recommendation)>0:
+			session['item']=recommendation[0]['reco']
 		#reco=RecoEngine.more2(location,category,month,user)
 		return render_template("show_reco.html",recommendation=recommendation)
 
@@ -175,8 +176,9 @@ def show():
 @app.route("/res_detail/<shopId>")
 def res_detail(shopId):
 	###list shop detail and relating restaurant
+	detail=RecoEngine.getDetail(shopId)
 	relating=RecoEngine.relating(shopId)
-	return render_template("res_detail.html",shopName=shopId,relating=relating)
+	return render_template("res_detail.html",relating=relating,detail=detail)
 
 
 @app.route("/month_best")
