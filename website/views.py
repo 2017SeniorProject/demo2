@@ -171,7 +171,12 @@ def show():
 	month=RecoEngine.getMonth()
 	division=RecoEngine.getDivision()
 	topPlace=RecoEngine.topPlace()
-	return render_template("show.html",season=season,category=category,month=month,division=division,popular=topPlace)
+	jiaoxi=RecoEngine.topResJiaoxi()
+	yilan=RecoEngine.topRes("宜蘭市")
+	loudong=RecoEngine.topRes("羅東鎮")
+	toucheng=RecoEngine.topResToucheng()
+	dongshan=RecoEngine.topResDongshan()
+	return render_template("show.html",season=season,category=category,month=month,division=division,jiaoxi=jiaoxi,popular=topPlace,yilan=yilan,loudong=loudong,toucheng=toucheng,dongshan=dongshan)
 
 
 @app.route("/res_detail/<shopId>")

@@ -477,7 +477,7 @@ class RecoEngine:
 	def topPlace():
 		query="""
 		Match (D:Division)-[:TOP_PLACE]->(reco:Restaurant)
-		return distinct reco order by reco.reviewCount desc limit 7
+		return distinct reco order by reco.SDRate desc limit 5
 		"""
 		return graph.data(query)
 
@@ -499,6 +499,33 @@ class RecoEngine:
 		return distinct reco order by reco.reviewCount desc limit 7
 		"""
 		return graph.data(query,season=season)
+
+	def topRes(division):
+		location=division
+		query="""
+		Match (n:Division)-[:TOP_PLACE]->(reco) where n.e_name={division}
+		return reco
+		"""
+		return graph.data(query,division=location)
+
+	def topResJiaoxi():
+		query="""
+		Match (n:Division)-[:TOP_PLACE]->(reco) where n.e_name="礁溪鄉"
+		return reco
+		"""
+		return graph.data(query)
+	def topResToucheng():
+		query="""
+		Match (n:Division)-[:TOP_PLACE]->(reco) where n.e_name="頭城鎮"
+		return reco
+		"""
+		return graph.data(query)
+	def topResDongshan():
+		query="""
+		Match (n:Division)-[:TOP_PLACE]->(reco) where n.e_name="冬山鄉"
+		return reco
+		"""
+		return graph.data(query)	
 ##############################################################################################
 def timestamp():
 	epoch = datetime.utcfromtimestamp(0)
