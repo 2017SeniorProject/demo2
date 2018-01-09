@@ -89,7 +89,7 @@ class RecoEngine:
 		lat=24.8229533748
 		lon=121.771853579
 		#sdivision=location
-		return graph.run(query,lat=lat,lon=lon)
+		return graph.data(query,lat=lati,lon=longi)
 
 
 	def res_by_month(location,month1):
@@ -368,7 +368,7 @@ class RecoEngine:
 
 		WITH reco, distance (point({latitude: reco.latitude, longitude: reco.longitude}), mapcenter) AS distance
 		RETURN reco, distance
-		ORDER BY distance LIMIT 10
+		ORDER BY distance LIMIT 5
 		"""
 		return graph.run(query,username=username)
 ############################################################################################################################################

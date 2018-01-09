@@ -166,6 +166,7 @@ def show():
 		#reco=RecoEngine.more2(location,category,month,user)
 		return render_template("show_reco.html",recommendation=recommendation)
 
+	
 	season=RecoEngine.currentSeason()
 	category=RecoEngine.getCategory()
 	month=RecoEngine.getMonth()
@@ -176,7 +177,8 @@ def show():
 	loudong=RecoEngine.topRes("羅東鎮")
 	toucheng=RecoEngine.topResToucheng()
 	dongshan=RecoEngine.topResDongshan()
-	return render_template("show.html",season=season,category=category,month=month,division=division,jiaoxi=jiaoxi,popular=topPlace,yilan=yilan,loudong=loudong,toucheng=toucheng,dongshan=dongshan)
+	nearyou=RecoEngine.res_near_you()
+	return render_template("show.html",season=season,category=category,month=month,division=division,jiaoxi=jiaoxi,popular=topPlace,yilan=yilan,loudong=loudong,toucheng=toucheng,dongshan=dongshan,nearyou=nearyou)
 
 
 @app.route("/res_detail/<shopId>")
